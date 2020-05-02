@@ -7,10 +7,7 @@ namespace HomeManager.HouseholdItems
 {
     public class Curtain : BaseHouseholdItem
     {
-        private string name;
         private bool isOpen;
-        public override string GetName { get => name; }
-
 
         public Curtain(string name)
         {

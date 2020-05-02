@@ -23,19 +23,9 @@ namespace HomeManager
             this.allHomeItems = homeItems;
         }
 
-        public IHouseholdItem GetItem(int index)
-        {
-            return allHomeItems[index];
-        }
-
         public void CreateNewHomeItem(IHouseholdItem item)
         {
             allHomeItems.Add(item);
-        }
-
-        public void DeleteHomeItem(int index)
-        {
-            allHomeItems.Add(allHomeItems[index]);
         }
 
         public void SwitchOffElectricity()

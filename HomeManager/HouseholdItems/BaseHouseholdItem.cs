@@ -7,24 +7,32 @@ namespace HomeManager.HouseholdItems
 {
     public abstract class BaseHouseholdItem : IHouseholdItem
     {
+        protected string name;
         protected object deviceOwner;
-        private bool isActive = true;
+        protected bool isActive = true;
 
-        public abstract string GetName { get; }
+        public string GetName => name;
 
-        private void CheckDeviceIsNull()
+        protected void CheckDeviceIsNull()
         {
             if (this.deviceOwner is null)
             {
                 throw new DeviceOwnerIsNullException();
             }
         }
-        private void CheckDeviceOwnerEquals(EquipmentControlPanel controller)
+        protected void CheckDeviceOwnerEquals(EquipmentControlPanel controller)
         {
             if (!controller.Equals(this.deviceOwner))
             {
                 throw new ControllerIsNotEqualDeviceOwnerException();
             }
+        }
+        protected bool CheckDeviceOwner(EquipmentControlPanel controller)
+        {
+            CheckDeviceIsNull();
+            CheckDeviceOwnerEquals(controller);
+
+            return true;
         }
 
         public void SetConnect(EquipmentControlPanel deviceOwner)
@@ -35,18 +43,9 @@ namespace HomeManager.HouseholdItems
             }
             else
             {
-                throw new Exception();
+                throw new DeviceBusyException();
             }
         }
-
-        protected bool CheckDeviceOwner(EquipmentControlPanel controller)
-        {
-            CheckDeviceIsNull();
-            CheckDeviceOwnerEquals(controller);
-
-            return true;
-        }
-
         public void DropConnect(EquipmentControlPanel controller)
         {
             CheckDeviceIsNull();

@@ -9,11 +9,6 @@
     <Grid>
         <Menu  Height="25" VerticalAlignment="Top">
             <MenuItem Header="Home" Height="25">
-                <MenuItem Header="Create New household item">
-                    <MenuItem Header="Coffe maker" Click="CreateNewCoffeMaker"></MenuItem>
-                    <MenuItem Header="Curtain" Click="CreateNewCurtain"></MenuItem>
-                    <MenuItem Header="Light buld" Click="CreateNewLightBuld"></MenuItem>
-                </MenuItem>
                 <MenuItem Header="Electricity">
                     <RadioButton Content="Electricity Turn On" Click="ElectricityTurnOn" IsChecked="True"></RadioButton>
                     <RadioButton Content="Electricity Turn Off" Click="ElectricityTurnOff"></RadioButton>
@@ -29,7 +24,7 @@
                 <RadioButton x:Name="IsHousList" Grid.Column="0" Width="180" Content="Hous list" IsChecked="True"  HorizontalAlignment="Left" Margin="185,0,0,0" Checked="RadioButtonCheckedHousList" />
                 <RadioButton x:Name="IsEquipmen" Grid.Column="1" Width="180" Content="Equipment Control Panel list" HorizontalAlignment="Left" Checked="RadioButtonCheckedEquipmentControl" />
             </Grid>
-            <ListBox Name="listHousholdItems" Height="350" Width="450" SelectionChanged="listBox2_SelectionChanged"/>
+            <ListBox Name="listHousholdItems" Height="350" Width="450" SelectionChanged="SelectionChanged"/>
 
         </StackPanel>
 
@@ -38,7 +33,7 @@
             <Button Height="25" Margin="0,5,0,5" Click="ReplenishCoffee">Replenish Coffee</Button>
             <Button Height="25" Margin="0,5,0,5" Click="ReplenishWater">Replenis hWater</Button>
         </StackPanel>
-        <StackPanel x:Name="listActionsLightBulb" Visibility="Visible"  Width="270" HorizontalAlignment="Left" Margin="15,57,0,110">
+        <StackPanel x:Name="listActionsLightBulb" Visibility="Collapsed"  Width="270" HorizontalAlignment="Left" Margin="15,57,0,110">
             <Button Height="25" Margin="0,5,0,5" Click="SetHalfPowerOfLight">Set Half Power O fLight</Button>
             <Button Height="25" Margin="0,5,0,5" Click="SetMaxPowerOfLight">Set Max Power Of Light</Button>
             <Button Height="25" Margin="0,5,0,5" Click="SetMinPowerOfLight">Set Min Power Of Light</Button>

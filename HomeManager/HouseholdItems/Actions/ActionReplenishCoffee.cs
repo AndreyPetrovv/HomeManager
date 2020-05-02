@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HomeManager.Exceptions;
 
 namespace HomeManager.HouseholdItems.Actions
 {
@@ -8,7 +9,11 @@ namespace HomeManager.HouseholdItems.Actions
     {
         public void DoAction(IHouseholdItem householdItem, EquipmentControlPanel controller)
         {
-              ((CoffeeMaker)householdItem).ReplenishCoffee(controller);
+            if (!(householdItem is CoffeeMaker))
+            {
+                throw new ControllerIsNotEqualDeviceOwnerException();
+            }
+            ((CoffeeMaker)householdItem).ReplenishCoffee(controller);
         }
     }
 }

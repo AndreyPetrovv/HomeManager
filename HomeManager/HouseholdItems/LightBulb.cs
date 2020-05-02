@@ -9,9 +9,7 @@ namespace HomeManager.HouseholdItems
 {
     public class LightBulb : BaseHouseholdItem
     {
-        private string name;
         private int powerOfLight;
-        public override string GetName { get => name; }
 
         public LightBulb(string name)
         {

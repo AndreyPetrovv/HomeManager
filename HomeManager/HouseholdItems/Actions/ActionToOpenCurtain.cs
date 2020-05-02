@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HomeManager.Exceptions;
 
 namespace HomeManager.HouseholdItems.Actions
 {
@@ -8,7 +9,12 @@ namespace HomeManager.HouseholdItems.Actions
     {
         public void DoAction(IHouseholdItem householdItem, EquipmentControlPanel controller)
         {
-              ((Curtain)householdItem).ToOpen(controller);
+            if (!(householdItem is Curtain))
+            {
+                throw new ControllerIsNotEqualDeviceOwnerException();
+            }
+
+            ((Curtain)householdItem).ToOpen(controller);
         }
     }
 }

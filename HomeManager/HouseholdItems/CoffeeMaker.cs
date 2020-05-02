@@ -9,10 +9,9 @@ namespace HomeManager.HouseholdItems
 {
     public class CoffeeMaker: BaseHouseholdItem
     {
-        private string name;
+        
         private int percentWater;
         private int percentGrainsCoffee;
-        public override string GetName { get => name; }
 
         public CoffeeMaker(string name)
         {
