@@ -43,19 +43,19 @@ namespace HomeManager
         }
         private void GenerateHouseholdItems()
         {
-            home.CreateNewHomeItem(new Curtain("Curtain 1"));
-            home.CreateNewHomeItem(new CoffeeMaker("CoffeeMaker 1"));
-            home.CreateNewHomeItem(new CoffeeMaker("CoffeeMaker 2"));
-            home.CreateNewHomeItem(new LightBulb("LightBulb 1"));
-            home.CreateNewHomeItem(new LightBulb("LightBulb 2"));
-            home.CreateNewHomeItem(new LightBulb("LightBulb 3"));
-            home.CreateNewHomeItem(new LightBulb("LightBulb 4"));
-            home.CreateNewHomeItem(new Curtain("Curtain 2"));
+            home.AddNewHomeItem(new Curtain("Curtain 1"));
+            home.AddNewHomeItem(new CoffeeMaker("CoffeeMaker 1"));
+            home.AddNewHomeItem(new CoffeeMaker("CoffeeMaker 2"));
+            home.AddNewHomeItem(new LightBulb("LightBulb 1"));
+            home.AddNewHomeItem(new LightBulb("LightBulb 2"));
+            home.AddNewHomeItem(new LightBulb("LightBulb 3"));
+            home.AddNewHomeItem(new LightBulb("LightBulb 4"));
+            home.AddNewHomeItem(new Curtain("Curtain 2"));
 
-            equipmentControlPanel.AddHomeItem(home.GetHomeItems[0]);
-            equipmentControlPanel.AddHomeItem(home.GetHomeItems[1]);
-            equipmentControlPanel.AddHomeItem(home.GetHomeItems[3]);
-            equipmentControlPanel.AddHomeItem(home.GetHomeItems[4]);
+            equipmentControlPanel.AddControlledItem(home.GetHomeItems[0]);
+            equipmentControlPanel.AddControlledItem(home.GetHomeItems[1]);
+            equipmentControlPanel.AddControlledItem(home.GetHomeItems[3]);
+            equipmentControlPanel.AddControlledItem(home.GetHomeItems[4]);
 
         }
 

@@ -21,7 +21,7 @@ namespace HomeManager
             this.controlledHomeItems = controlledHomeItems;
         }
 
-        public void AddHomeItem(IHouseholdItem homeItem)
+        public void AddControlledItem(IHouseholdItem homeItem)
         {
             homeItem.SetConnect(this);
 

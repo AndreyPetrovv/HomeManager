@@ -8,22 +8,19 @@ namespace HomeManager
 {
     public class Home
     {
-        private EquipmentControlPanel controlPanel;
         private List<IHouseholdItem> allHomeItems;
         public List<IHouseholdItem> GetHomeItems { get => allHomeItems; }
 
         public Home()
         {
-            this.controlPanel = new EquipmentControlPanel();
             this.allHomeItems = new List<IHouseholdItem>();
         }
-        public Home(EquipmentControlPanel controlPanel, List<IHouseholdItem> homeItems)
+        public Home(List<IHouseholdItem> homeItems)
         {
-            this.controlPanel = controlPanel;
             this.allHomeItems = homeItems;
         }
 
-        public void CreateNewHomeItem(IHouseholdItem item)
+        public void AddNewHomeItem(IHouseholdItem item)
         {
             allHomeItems.Add(item);
         }

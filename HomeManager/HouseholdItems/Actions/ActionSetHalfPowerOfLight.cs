@@ -5,7 +5,7 @@ using HomeManager.Exceptions;
 
 namespace HomeManager.HouseholdItems.Actions
 {
-    class ActionSetHalfPowerOfLight : IAction
+    public class ActionSetHalfPowerOfLight : IAction
     {
         public void DoAction(IHouseholdItem householdItem, EquipmentControlPanel controller)
         {
@@ -13,7 +13,8 @@ namespace HomeManager.HouseholdItems.Actions
             {
                 throw new ControllerIsNotEqualDeviceOwnerException();
             }
-              ((LightBulb)householdItem).SetPowerOfLight(50, controller);
+
+            ((LightBulb)householdItem).SetPowerOfLight(50, controller);
         }
     }
 }

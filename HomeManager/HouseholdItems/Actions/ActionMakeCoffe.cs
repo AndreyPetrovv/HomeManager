@@ -6,7 +6,7 @@ using HomeManager.Exceptions;
 
 namespace HomeManager.HouseholdItems.Actions
 {
-    class ActionMakeCoffe : IAction
+    public class ActionMakeCoffe : IAction
     {
         public void DoAction(IHouseholdItem householdItem, EquipmentControlPanel controller)
         {

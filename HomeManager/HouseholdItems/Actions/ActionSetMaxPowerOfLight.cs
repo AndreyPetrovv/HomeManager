@@ -5,7 +5,7 @@ using HomeManager.Exceptions;
 
 namespace HomeManager.HouseholdItems.Actions
 {
-    class ActionSetMaxPowerOfLight : IAction
+    public class ActionSetMaxPowerOfLight : IAction
     {
         public void DoAction(IHouseholdItem householdItem, EquipmentControlPanel controller)
         {
@@ -13,7 +13,8 @@ namespace HomeManager.HouseholdItems.Actions
             {
                 throw new ControllerIsNotEqualDeviceOwnerException();
             }
-              ((LightBulb)householdItem).SetPowerOfLight(100 ,controller);
+
+            ((LightBulb)householdItem).SetPowerOfLight(100 ,controller);
         }
     }
 }
