@@ -15,45 +15,28 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             
-            controlPanel.AddControlledItem(new Curtain("test"));
+            controlPanel.ConnectionEstablishment(new Curtain("test"));
 
-            Assert.AreEqual(controlPanel.GetControlledHomeItems.Count, 1);
+            Assert.AreEqual(controlPanel.GetHouseholdActions.Count, 2);
         }
 
         [TestMethod]
         public void PushButtonIndexOutOfRangeExceptionTest()
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionMakeCoffe action = new ActionMakeCoffe();
+            controlPanel.ConnectionEstablishment(new Curtain("test"));
 
-            try
-            {
-                controlPanel.PushButton(1, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new IndexOutOfRangeException().Message);
-            }
-
+            Assert.ThrowsException<IndexOutOfRangeException>(() => controlPanel.PushButton(99));
         }
 
         [TestMethod]
         public void PushButtonItemOfHouseIsTurnOffExceptionTest()
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            controlPanel.GetControlledHomeItems[0].TurnOff();
-            ActionMakeCoffe action = new ActionMakeCoffe();
+            controlPanel.ConnectionEstablishment(new Curtain("test"));
+            controlPanel.GetHouseholdActions[0].GetHouseholdItem().TurnOff();
 
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ItemOfHouseIsTurnOffException().Message);
-            }
+            Assert.ThrowsException<ItemOfHouseIsTurnOffException>(() => controlPanel.PushButton(0));
         }
 
     }

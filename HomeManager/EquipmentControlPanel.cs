@@ -9,40 +9,41 @@ namespace HomeManager
 {
     public class EquipmentControlPanel
     {
-        private List<IHouseholdItem> controlledHomeItems;
-        public List<IHouseholdItem> GetControlledHomeItems { get => controlledHomeItems; }
+        private List<IAction> householdActions;
+        public List<IAction> GetHouseholdActions { get => householdActions; }
 
         public EquipmentControlPanel()
         {
-            this.controlledHomeItems = new List<IHouseholdItem>();
+            this.householdActions = new List<IAction>();
         }
-        public EquipmentControlPanel(List<IHouseholdItem> controlledHomeItems)
+        public EquipmentControlPanel(List<IAction> householdActions)
         {
-            this.controlledHomeItems = controlledHomeItems;
-        }
-
-        public void AddControlledItem(IHouseholdItem homeItem)
-        {
-            homeItem.SetConnect(this);
-
-            controlledHomeItems.Add(homeItem);
+            this.householdActions = householdActions;
         }
 
-        public void PushButton(int itemIndex, IAction action)
+        public void PushButton(int actionIndex)
         {
-            if (itemIndex < 0 || itemIndex >= controlledHomeItems.Count)
+            if (actionIndex < 0 || actionIndex >= householdActions.Count)
             {
                 throw new IndexOutOfRangeException();
             }
 
-            IHouseholdItem item = GetControlledHomeItems[itemIndex];
+            IAction action = householdActions[actionIndex];
 
-            if (!item.ToRespond())
+            if (!action.GetHouseholdItem().ToRespond())
             {
                 throw new ItemOfHouseIsTurnOffException();
             }
 
-            action.DoAction(item, this);
+            action.DoAction();
+        }
+
+        public void ConnectionEstablishment(IHouseholdItem householdItem)
+        {
+            foreach (var item in householdItem.SetConnect(this))
+            {
+                householdActions.Add(item);
+            }
         }
 
     }

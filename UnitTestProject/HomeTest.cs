@@ -26,7 +26,7 @@ namespace UnitTestProject
 
             home.SwitchOffElectricity();
 
-            Assert.AreEqual(home.GetHomeItems[0].ToRespond(), false);
+            Assert.IsFalse(home.GetHomeItems[0].ToRespond());
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace UnitTestProject
 
             home.SwitchOnElectricity();
 
-            Assert.AreEqual(home.GetHomeItems[0].ToRespond(), true);
+            Assert.IsTrue(home.GetHomeItems[0].ToRespond());
         }
     }
 }

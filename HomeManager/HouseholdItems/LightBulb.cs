@@ -17,16 +17,42 @@ namespace HomeManager.HouseholdItems
             this.powerOfLight = 0;
         }
 
-        public void SetPowerOfLight(int valuePower, EquipmentControlPanel controller)
+        public override List<IAction> SetConnect(EquipmentControlPanel deviceOwner)
         {
-            CheckDeviceOwner(controller);
+            if (this.deviceOwner is null)
+            {
+                this.deviceOwner = deviceOwner;
 
-            if (valuePower < 0 || valuePower > 100)
+                List<IAction> actions = new List<IAction>() {
+                    new ActionUpPowerOfLight(this),
+                };
+
+                return actions;
+            }
+            else
+            {
+                throw new DeviceBusyException();
+            }
+        }
+
+        public void SetPowerOfLight(int valuePower)
+        {
+            CheckDeviceIsNull();
+            if (valuePower < -100 || valuePower > 100)
             {
                throw new InvalidIncomingValueException();
             }
 
-            powerOfLight = valuePower;
+            powerOfLight += valuePower;
+
+            if (powerOfLight < 0 )
+            {
+                powerOfLight = 0;
+            }
+            else if (powerOfLight > 100)
+            {
+                powerOfLight = 100;
+            }
         }
 
         public override string GetString()

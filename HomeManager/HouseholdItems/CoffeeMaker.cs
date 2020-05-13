@@ -19,31 +19,47 @@ namespace HomeManager.HouseholdItems
             this.percentWater = 0;
             this.percentGrainsCoffee = 0;
         }
-      
-        public void MakeCoffee(EquipmentControlPanel controller)
-        {
-            CheckDeviceOwner(controller);
 
+        public override List<IAction> SetConnect(EquipmentControlPanel deviceOwner)
+        {
+            if (this.deviceOwner is null)
+            {
+                this.deviceOwner = deviceOwner;
+
+                List<IAction> actions = new List<IAction>() {
+                    new ActionMakeCoffe(this),
+                    new ActionReplenishCoffee(this),
+                    new ActionReplenishdWater(this), 
+                };
+
+                return actions;
+            }
+            else
+            {
+                throw new DeviceBusyException();
+            }
+        }
+
+        public void MakeCoffee()
+        {
+            CheckDeviceIsNull();
             if (percentWater < 10 || percentGrainsCoffee < 15)
             {
                 throw new InvalidIncomingValueException();
             }
             percentWater -= 10;
             percentGrainsCoffee -= 15;
-
         }
 
-        public void ReplenishdWater(EquipmentControlPanel controller)
+        public void ReplenishdWater()
         {
-            CheckDeviceOwner(controller);
-
+            CheckDeviceIsNull();
             this.percentWater = ReplenishToMaximum(this.percentWater);
         }
 
-        public void ReplenishCoffee(EquipmentControlPanel controller)
+        public void ReplenishCoffee()
         {
-            CheckDeviceOwner(controller);
-
+            CheckDeviceIsNull();
             this.percentGrainsCoffee = ReplenishToMaximum(this.percentGrainsCoffee);
         }
 

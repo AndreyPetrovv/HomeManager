@@ -22,32 +22,14 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <RadioButton x:Name="IsHousList" Grid.Column="0" Width="180" Content="Hous list" IsChecked="True"  HorizontalAlignment="Left" Margin="185,0,0,0" Checked="RadioButtonCheckedHousList" />
-                <RadioButton x:Name="IsEquipmen" Grid.Column="1" Width="180" Content="Equipment Control Panel list" HorizontalAlignment="Left" Checked="RadioButtonCheckedEquipmentControl" />
+                <RadioButton x:Name="IsEquipmen" Grid.Column="1" Width="180" Content="All Actions of Equipment Control Panel" HorizontalAlignment="Left" Checked="RadioButtonCheckedEquipmentControl" />
             </Grid>
             <ListBox Name="listHousholdItems" Height="350" Width="450" SelectionChanged="SelectionChanged"/>
-
         </StackPanel>
 
-        <StackPanel x:Name="listActionsCoffeMaker" Visibility="Collapsed"  Width="270" HorizontalAlignment="Left" Margin="15,57,0,110">
-            <Button Height="25" Margin="0,5,0,5" Click="MakeCoffe">Make Coffee</Button>
-            <Button Height="25" Margin="0,5,0,5" Click="ReplenishCoffee">Replenish Coffee</Button>
-            <Button Height="25" Margin="0,5,0,5" Click="ReplenishWater">Replenis hWater</Button>
+        <StackPanel x:Name="listActions" Width="270" HorizontalAlignment="Left" Margin="15,57,0,110">
+            <Button Height="25" Margin="0,5,0,5" Click="Do">Do</Button>
         </StackPanel>
-        <StackPanel x:Name="listActionsLightBulb" Visibility="Collapsed"  Width="270" HorizontalAlignment="Left" Margin="15,57,0,110">
-            <Button Height="25" Margin="0,5,0,5" Click="SetHalfPowerOfLight">Set Half Power O fLight</Button>
-            <Button Height="25" Margin="0,5,0,5" Click="SetMaxPowerOfLight">Set Max Power Of Light</Button>
-            <Button Height="25" Margin="0,5,0,5" Click="SetMinPowerOfLight">Set Min Power Of Light</Button>
-            <Button Height="25" Margin="0,5,0,5" Click="SetZeroPowerOfLight">Set Zero Power Of Light</Button>
-        </StackPanel>
-        <StackPanel x:Name="listActionsCurtain" Visibility="Collapsed" Width="270" HorizontalAlignment="Left" Margin="15,57,0,110">
-            <Button Height="25" Margin="0,5,0,5" Click="ToCloseCurtain">To Close Curtain</Button>
-            <Button Height="25" Margin="0,5,0,5" Click="ToOpenCurtain">To Open Curtain</Button>
-        </StackPanel>
-
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" Height="60"  Margin="15,346,515,28">
-            <TextBlock x:Name="itemInfo"  Height="60" Width="240" TextWrapping="WrapWithOverflow"/>
-        </ScrollViewer>
-        
-
+       
     </Grid>
 </Window>

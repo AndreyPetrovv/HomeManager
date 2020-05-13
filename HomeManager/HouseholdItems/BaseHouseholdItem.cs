@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using HomeManager.Exceptions;
+using HomeManager.HouseholdItems.Actions;
+
 
 namespace HomeManager.HouseholdItems
 {
@@ -35,17 +37,8 @@ namespace HomeManager.HouseholdItems
             return true;
         }
 
-        public void SetConnect(EquipmentControlPanel deviceOwner)
-        {
-            if (this.deviceOwner is null)
-            {
-                this.deviceOwner = deviceOwner;
-            }
-            else
-            {
-                throw new DeviceBusyException();
-            }
-        }
+        public abstract List<IAction> SetConnect(EquipmentControlPanel deviceOwner);
+        
         public void DropConnect(EquipmentControlPanel controller)
         {
             CheckDeviceIsNull();

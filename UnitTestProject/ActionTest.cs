@@ -13,280 +13,111 @@ namespace UnitTestProject
         [TestMethod]
         public void ActionMakeCoffeTest()
         {
+
+            CoffeeMaker coffeeMaker = new CoffeeMaker("test");
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new CoffeeMaker("test"));
-            ActionReplenishdWater actionw = new ActionReplenishdWater();
-            controlPanel.PushButton(0, actionw);
-            ActionReplenishCoffee actionc = new ActionReplenishCoffee();
-            controlPanel.PushButton(0, actionc);
-            ActionMakeCoffe action = new ActionMakeCoffe();
+            controlPanel.ConnectionEstablishment(coffeeMaker);
+            ActionMakeCoffe action = new ActionMakeCoffe(coffeeMaker);
+            ActionReplenishCoffee actionReplenish = new ActionReplenishCoffee(coffeeMaker);
+            ActionReplenishdWater replenishdWater = new ActionReplenishdWater(coffeeMaker);
+            actionReplenish.DoAction();
+            replenishdWater.DoAction();
+            
 
-            controlPanel.PushButton(0, action);
+            action.DoAction();
 
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
+            Assert.AreEqual(action.GetHouseholdItem().GetString(),
                 "Name test, Water 90%, Grains Coffee 85%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
         public void ActionReplenishCoffeeTest()
         {
+            CoffeeMaker coffeeMaker = new CoffeeMaker("test");
+            ActionReplenishCoffee action = new ActionReplenishCoffee(coffeeMaker);
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new CoffeeMaker("test"));
-            ActionReplenishCoffee action = new ActionReplenishCoffee();
+            controlPanel.ConnectionEstablishment(coffeeMaker);
 
-            controlPanel.PushButton(0, action);
+            action.DoAction();
 
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
+            Assert.AreEqual(action.GetHouseholdItem().GetString(),
                 "Name test, Water 0%, Grains Coffee 100%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
         public void ActionReplenishdWaterTest()
         {
+            CoffeeMaker coffeeMaker = new CoffeeMaker("test");
+            ActionReplenishdWater action = new ActionReplenishdWater(coffeeMaker);
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new CoffeeMaker("test"));
-            ActionReplenishdWater action = new ActionReplenishdWater();
+            controlPanel.ConnectionEstablishment(coffeeMaker);
 
-            controlPanel.PushButton(0, action);
+            action.DoAction();
 
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
+            Assert.AreEqual(action.GetHouseholdItem().GetString(),
                 "Name test, Water 100%, Grains Coffee 0%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
-        public void ActionSetHalfPowerOfLightTest()
+        public void ActionUpPowerOfLightTest()
         {
+            LightBulb lightBulb = new LightBulb("test");
+            ActionUpPowerOfLight action = new ActionUpPowerOfLight(lightBulb);
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new LightBulb("test"));
-            ActionSetHalfPowerOfLight action = new ActionSetHalfPowerOfLight();
+            controlPanel.ConnectionEstablishment(lightBulb);
 
-            controlPanel.PushButton(0, action);
+            action.DoAction();
 
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
-                "Name test, Power of ight 50%, Connect HomeManager.EquipmentControlPanel");
-        }
-
-        [TestMethod]
-        public void ActionSetMaxPowerOfLightTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new LightBulb("test"));
-            ActionSetMaxPowerOfLight action = new ActionSetMaxPowerOfLight();
-
-            controlPanel.PushButton(0, action);
-
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
-                "Name test, Power of ight 100%, Connect HomeManager.EquipmentControlPanel");
-        }
-
-        [TestMethod]
-        public void ActionSetMinPowerOfLightTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new LightBulb("test"));
-            ActionSetMinPowerOfLight action = new ActionSetMinPowerOfLight();
-
-            controlPanel.PushButton(0, action);
-
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
+            Assert.AreEqual(action.GetHouseholdItem().GetString(),
                 "Name test, Power of ight 10%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
-        public void ActionSetZeroPowerOfLightTest()
+        public void ActionDownPowerOfLightTest()
         {
+            LightBulb lightBulb = new LightBulb("test");
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new LightBulb("test"));
-            ActionSetMaxPowerOfLight actionm = new ActionSetMaxPowerOfLight();
-            controlPanel.PushButton(0, actionm);
-            ActionSetZeroPowerOfLight action = new ActionSetZeroPowerOfLight();
+            controlPanel.ConnectionEstablishment(lightBulb);
+            ActionUpPowerOfLight actionU = new ActionUpPowerOfLight(lightBulb);
+            actionU.DoAction();
+            actionU.DoAction();
+            ActionDownPowerOfLight actionD = new ActionDownPowerOfLight(lightBulb);
 
-            controlPanel.PushButton(0, action);
+            actionD.DoAction();
 
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
-                "Name test, Power of ight 0%, Connect HomeManager.EquipmentControlPanel");
+            Assert.AreEqual(actionD.GetHouseholdItem().GetString(),
+                "Name test, Power of ight 10%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
         public void ActionToCloseCurtainTest()
         {
+            Curtain curtain = new Curtain("test");
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionToOpenCurtain actiono = new ActionToOpenCurtain();
-            controlPanel.PushButton(0, actiono);
-            ActionToCloseCurtain action = new ActionToCloseCurtain();
+            controlPanel.ConnectionEstablishment(curtain);
+            ActionOpenCurtain actionO = new ActionOpenCurtain(curtain);
+            actionO.DoAction();
+            ActionCloseCurtain action = new ActionCloseCurtain(curtain);
+            
 
-            controlPanel.PushButton(0, action);
+            action.DoAction();
 
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
+            Assert.AreEqual(action.GetHouseholdItem().GetString(),
                 "Name test, Is open False, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
         public void ActionToOpenCurtainTest()
         {
+            Curtain curtain = new Curtain("test");
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionToOpenCurtain action = new ActionToOpenCurtain();
+            controlPanel.ConnectionEstablishment(curtain);
+            ActionOpenCurtain action = new ActionOpenCurtain(curtain);
 
-            controlPanel.PushButton(0, action);
+            action.DoAction();
 
-            Assert.AreEqual(controlPanel.GetControlledHomeItems[0].GetString(),
+            Assert.AreEqual(action.GetHouseholdItem().GetString(),
                 "Name test, Is open True, Connect HomeManager.EquipmentControlPanel");
-        }
-
-
-        [TestMethod]
-        public void ActionMakeCoffeExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionMakeCoffe action = new ActionMakeCoffe();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ActionReplenishCoffeeExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionReplenishCoffee action = new ActionReplenishCoffee();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ActionReplenishdWaterExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionReplenishdWater action = new ActionReplenishdWater();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ActionSetHalfPowerOfLightExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionSetHalfPowerOfLight action = new ActionSetHalfPowerOfLight();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ActionSetMaxPowerOfLightExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionSetMaxPowerOfLight action = new ActionSetMaxPowerOfLight();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ActionSetMinPowerOfLightExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionSetMinPowerOfLight action = new ActionSetMinPowerOfLight();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ActionSetZeroPowerOfLightExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new Curtain("test"));
-            ActionSetZeroPowerOfLight action = new ActionSetZeroPowerOfLight();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ActionToCloseCurtainExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new LightBulb("test"));
-            ActionToCloseCurtain action = new ActionToCloseCurtain();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ActionToOpenCurtainExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            controlPanel.AddControlledItem(new LightBulb("test"));
-            ActionToOpenCurtain action = new ActionToOpenCurtain();
-
-            try
-            {
-                controlPanel.PushButton(0, action);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
         }
 
     }

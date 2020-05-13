@@ -7,14 +7,26 @@ namespace HomeManager.HouseholdItems.Actions
 {
     public class ActionReplenishdWater : IAction
     {
-        public void DoAction(IHouseholdItem householdItem, EquipmentControlPanel controller)
-        {
-            if (!(householdItem is CoffeeMaker))
-            {
-                throw new ControllerIsNotEqualDeviceOwnerException();
-            }
+        private CoffeeMaker coffeeMaker;
 
-              ((CoffeeMaker)householdItem).ReplenishdWater(controller);
+        public ActionReplenishdWater(CoffeeMaker coffeeMaker)
+        {
+            this.coffeeMaker = coffeeMaker;
+        }
+
+        public void DoAction()
+        {
+            coffeeMaker.ReplenishdWater();
+        }
+
+        public IHouseholdItem GetHouseholdItem()
+        {
+            return coffeeMaker;
+        }
+
+        public string GetString()
+        {
+            return $"Command Replenishd Water for {coffeeMaker.GetName}";
         }
     }
 }

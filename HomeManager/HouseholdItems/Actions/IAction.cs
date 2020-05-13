@@ -6,6 +6,10 @@ namespace HomeManager.HouseholdItems.Actions
 {
     public interface IAction
     {
-        public void DoAction(IHouseholdItem householdItem, EquipmentControlPanel controller);
+        public void DoAction();
+
+        public IHouseholdItem GetHouseholdItem();
+
+        public string GetString();
     }
 }

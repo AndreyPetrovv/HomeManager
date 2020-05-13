@@ -24,21 +24,21 @@ namespace HomeManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<string> obsListHousholdItems;
+        private ObservableCollection<string> viewCollection;
         private EquipmentControlPanel equipmentControlPanel;
         private Home home;
 
         public MainWindow()
         {
            
-            obsListHousholdItems = new ObservableCollection<string>();
+            viewCollection = new ObservableCollection<string>();
             equipmentControlPanel = new EquipmentControlPanel();
             home = new Home();
 
             GenerateHouseholdItems();
 
             InitializeComponent();
-            listHousholdItems.ItemsSource = obsListHousholdItems;
+            listHousholdItems.ItemsSource = viewCollection;
 
         }
         private void GenerateHouseholdItems()
@@ -52,13 +52,12 @@ namespace HomeManager
             home.AddNewHomeItem(new LightBulb("LightBulb 4"));
             home.AddNewHomeItem(new Curtain("Curtain 2"));
 
-            equipmentControlPanel.AddControlledItem(home.GetHomeItems[0]);
-            equipmentControlPanel.AddControlledItem(home.GetHomeItems[1]);
-            equipmentControlPanel.AddControlledItem(home.GetHomeItems[3]);
-            equipmentControlPanel.AddControlledItem(home.GetHomeItems[4]);
+            equipmentControlPanel.ConnectionEstablishment(home.GetHomeItems[0]);
+            equipmentControlPanel.ConnectionEstablishment(home.GetHomeItems[1]);
+            equipmentControlPanel.ConnectionEstablishment(home.GetHomeItems[3]);
+            equipmentControlPanel.ConnectionEstablishment(home.GetHomeItems[4]);
 
         }
-
 
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -71,39 +70,6 @@ namespace HomeManager
                 {
                     item = home.GetHomeItems[index];
                 }
-                else
-                {
-                    item = equipmentControlPanel.GetControlledHomeItems[index];
-                }
-                
-                if(item is Curtain)
-                {
-                    listActionsCoffeMaker.Visibility = Visibility.Collapsed;
-                    listActionsCurtain.Visibility = Visibility.Visible;
-                    listActionsLightBulb.Visibility = Visibility.Collapsed;
-                }
-                else if (item is CoffeeMaker)
-                {
-                    listActionsCoffeMaker.Visibility = Visibility.Visible;
-                    listActionsCurtain.Visibility = Visibility.Collapsed;
-                    listActionsLightBulb.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    listActionsCoffeMaker.Visibility = Visibility.Collapsed;
-                    listActionsCurtain.Visibility = Visibility.Collapsed;
-                    listActionsLightBulb.Visibility = Visibility.Visible;
-                }
-                SetInfoFromItem(item);
-            }
-        }
-        private void ViewItems(List<IHouseholdItem> items)
-        {
-            obsListHousholdItems.Clear();
-
-            foreach (var item in items)
-            {
-                obsListHousholdItems.Add(item.GetName);
             }
         }
 
@@ -122,156 +88,48 @@ namespace HomeManager
         }
         private void RadioButtonCheckedEquipmentControl(object sender, RoutedEventArgs e)
         {
-            ViewItems(equipmentControlPanel.GetControlledHomeItems);
+            ViewActions(equipmentControlPanel.GetHouseholdActions);
+        }
+        private void ViewItems(List<IHouseholdItem> items)
+        {
+            viewCollection.Clear();
+
+            foreach (var item in items)
+            {
+                viewCollection.Add(item.GetString());
+            }
+        }
+        private void ViewActions(List<IAction> actions)
+        {
+            viewCollection.Clear();
+
+            foreach (var item in actions)
+            {
+                viewCollection.Add(item.GetString());
+            }
         }
 
-        private void SetInfoFromItem(IHouseholdItem item)
-        {
-            itemInfo.Text = item.GetString();
-        }
         private int GetIndexSelectedItem()
         {
             return listHousholdItems.SelectedIndex;
         }
 
-        private void ProcessingCustomExeptions(Exception ex)
-        {
-            if(ex is DeviceOwnerIsNullException)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            else if(ex is ControllerIsNotEqualDeviceOwnerException)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            else if(ex is InvalidIncomingValueException)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            else if (ex is IndexOutOfRangeException)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            else if (ex is ItemOfHouseIsTurnOffException)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            else if (ex is DeviceBusyException)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            else
-            {
-                throw ex;
-            }
-        }
-
-        private void MakeCoffe(object sender, RoutedEventArgs e)
+        private void Do(object sender, RoutedEventArgs e)
         {
             try
             {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionMakeCoffe());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
+                if (! IsHousList.IsChecked.Value)
+                {
+                    equipmentControlPanel.PushButton(GetIndexSelectedItem());
+                }
+            }
+            catch (HouseholdItemException householdItemException)
+            {
+                MessageBox.Show(householdItemException.Message);
             }
             catch (Exception ex)
             {
-                ProcessingCustomExeptions(ex);
-            }
-        }
-        private void ReplenishCoffee(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionReplenishCoffee());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
-            }
-            catch (Exception ex)
-            {
-                ProcessingCustomExeptions(ex);
-            }
-        }
-        private void ReplenishWater(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionReplenishdWater());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
-            }
-            catch (Exception ex)
-            {
-                ProcessingCustomExeptions(ex);
-            }
-        }
-        private void SetHalfPowerOfLight(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionSetHalfPowerOfLight());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
-            }
-            catch (Exception ex)
-            {
-                ProcessingCustomExeptions(ex);
-            }
-        }
-        private void SetMaxPowerOfLight(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionSetMaxPowerOfLight());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
-            }
-            catch (Exception ex)
-            {
-                ProcessingCustomExeptions(ex);
-            }
-        }
-        private void SetMinPowerOfLight(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionSetMinPowerOfLight());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
-            }
-            catch (Exception ex)
-            {
-                ProcessingCustomExeptions(ex);
-            }
-        }
-        private void SetZeroPowerOfLight(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionSetZeroPowerOfLight());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
-            }
-            catch (Exception ex)
-            {
-                ProcessingCustomExeptions(ex);
-            }
-        }
-        private void ToCloseCurtain(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionToCloseCurtain());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
-            }
-            catch (Exception ex)
-            {
-                ProcessingCustomExeptions(ex);
-            }
-        }
-        private void ToOpenCurtain(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                equipmentControlPanel.PushButton(GetIndexSelectedItem(), new ActionToOpenCurtain());
-                itemInfo.Text = equipmentControlPanel.GetControlledHomeItems[GetIndexSelectedItem()].GetString();
-            }
-            catch (Exception ex)
-            {
-                ProcessingCustomExeptions(ex);
+                MessageBox.Show(String.Format("Programming error", ex.Message));
             }
         }
 

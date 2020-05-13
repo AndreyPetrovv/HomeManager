@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using HomeManager.HouseholdItems;
 using HomeManager.Exceptions;
 
 namespace HomeManager.HouseholdItems.Actions
 {
-    public class ActionMakeCoffe : IAction
+    public class ActionUpPowerOfLight : IAction
     {
-        private CoffeeMaker coffeeMaker;
+        private LightBulb lightBulb;
 
-        public ActionMakeCoffe(CoffeeMaker coffeeMaker)
+        public ActionUpPowerOfLight(LightBulb lightBulb)
         {
-            this.coffeeMaker = coffeeMaker;
+            this.lightBulb = lightBulb;
         }
+
         public void DoAction()
         {
-            coffeeMaker.MakeCoffee();
+            lightBulb.SetPowerOfLight(10);
         }
 
         public IHouseholdItem GetHouseholdItem()
         {
-            return coffeeMaker;
+            return lightBulb;
         }
 
         public string GetString()
         {
-            return $"Command Make Coffee for {coffeeMaker.GetName}";
+            return $"Command Up Power Of Light for {lightBulb.GetName}";
         }
     }
 }

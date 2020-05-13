@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using HomeManager.Exceptions;
+
 
 namespace HomeManager.HouseholdItems
 {
@@ -14,17 +16,34 @@ namespace HomeManager.HouseholdItems
             this.name = name;
         }
 
-        public void ToOpen(EquipmentControlPanel controller)
+        public override List<IAction> SetConnect(EquipmentControlPanel deviceOwner)
         {
-            CheckDeviceOwner(controller);
+            if (this.deviceOwner is null)
+            {
+                this.deviceOwner = deviceOwner;
 
+                List<IAction> actions = new List<IAction>() {
+                    new ActionOpenCurtain(this),
+                    new ActionCloseCurtain(this),
+                };
+
+                return actions;
+            }
+            else
+            {
+                throw new DeviceBusyException();
+            }
+        }
+
+        public void Open()
+        {
+            CheckDeviceIsNull();
             isOpen = true;
         }
 
-        public void ToClose(EquipmentControlPanel controller)
+        public void Close()
         {
-            CheckDeviceOwner(controller);
-
+            CheckDeviceIsNull();
             isOpen = false;
         }
 

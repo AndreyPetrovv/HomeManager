@@ -16,11 +16,11 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             CoffeeMaker item = new CoffeeMaker("test");
-            controlPanel.AddControlledItem(item);
-            item.ReplenishCoffee(controlPanel);
-            item.ReplenishdWater(controlPanel);
+            controlPanel.ConnectionEstablishment(item);
+            item.ReplenishCoffee();
+            item.ReplenishdWater();
 
-            item.MakeCoffee(controlPanel);
+            item.MakeCoffee();
 
             Assert.AreEqual(item.GetString(),
                 "Name test, Water 90%, Grains Coffee 85%, Connect HomeManager.EquipmentControlPanel");
@@ -31,9 +31,9 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             CoffeeMaker item = new CoffeeMaker("test");
-            controlPanel.AddControlledItem(item);
+            controlPanel.ConnectionEstablishment(item);
 
-            item.ReplenishCoffee(controlPanel);
+            item.ReplenishCoffee();
 
             Assert.AreEqual(item.GetString(),
                 "Name test, Water 0%, Grains Coffee 100%, Connect HomeManager.EquipmentControlPanel");
@@ -44,64 +44,25 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             CoffeeMaker item = new CoffeeMaker("test");
-            controlPanel.AddControlledItem(item);
+            controlPanel.ConnectionEstablishment(item);
 
-            item.ReplenishdWater(controlPanel);
+            item.ReplenishdWater();
 
             Assert.AreEqual(item.GetString(),
                 "Name test, Water 100%, Grains Coffee 0%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
-        public void ActionSetHalfPowerOfLightTest()
+        public void SetPowerOfLightTest()
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             LightBulb item = new LightBulb("test");
-            controlPanel.AddControlledItem(item);
+            controlPanel.ConnectionEstablishment(item);
 
-            item.SetPowerOfLight(50, controlPanel);
+            item.SetPowerOfLight(50);
 
             Assert.AreEqual(item.GetString(),
                 "Name test, Power of ight 50%, Connect HomeManager.EquipmentControlPanel");
-        }
-
-        [TestMethod]
-        public void SetMaxPowerOfLightTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            LightBulb item = new LightBulb("test");
-            controlPanel.AddControlledItem(item);
-
-            item.SetPowerOfLight(100, controlPanel);
-
-            Assert.AreEqual(item.GetString(),
-                "Name test, Power of ight 100%, Connect HomeManager.EquipmentControlPanel");
-        }
-
-        [TestMethod]
-        public void SetMinPowerOfLightTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            LightBulb item = new LightBulb("test");
-            controlPanel.AddControlledItem(item);
-
-            item.SetPowerOfLight(10, controlPanel);
-
-            Assert.AreEqual(item.GetString(),
-                "Name test, Power of ight 10%, Connect HomeManager.EquipmentControlPanel");
-        }
-
-        [TestMethod]
-        public void SetZeroPowerOfLightTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            LightBulb item = new LightBulb("test");
-            controlPanel.AddControlledItem(item);
-
-            item.SetPowerOfLight(0, controlPanel);
-
-            Assert.AreEqual(item.GetString(),
-                "Name test, Power of ight 0%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -109,9 +70,9 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             Curtain item = new Curtain("test");
-            controlPanel.AddControlledItem(item);
+            controlPanel.ConnectionEstablishment(item);
 
-            item.ToClose(controlPanel);
+            item.Close();
 
             Assert.AreEqual(item.GetString(),
                 "Name test, Is open False, Connect HomeManager.EquipmentControlPanel");
@@ -122,10 +83,10 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             Curtain item = new Curtain("test");
-            controlPanel.AddControlledItem(item);
-            item.ToClose(controlPanel);
+            controlPanel.ConnectionEstablishment(item);
+            item.Close();
 
-            item.ToOpen(controlPanel);
+            item.Open();
 
             Assert.AreEqual(item.GetString(),
                 "Name test, Is open True, Connect HomeManager.EquipmentControlPanel");
@@ -136,16 +97,9 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             CoffeeMaker item = new CoffeeMaker("test");
-            controlPanel.AddControlledItem(item);
+            controlPanel.ConnectionEstablishment(item);
 
-            try
-            {
-                item.MakeCoffee(controlPanel);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new InvalidIncomingValueException().Message);
-            }
+            Assert.ThrowsException<InvalidIncomingValueException>(() => item.MakeCoffee());
         }
 
         [TestMethod]
@@ -153,16 +107,9 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             LightBulb item = new LightBulb("test");
-            controlPanel.AddControlledItem(item);
+            controlPanel.ConnectionEstablishment(item);
 
-            try
-            {
-                item.SetPowerOfLight(-1, controlPanel);
-            }
-            catch(Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new InvalidIncomingValueException().Message);
-            }
+            Assert.ThrowsException<InvalidIncomingValueException>(() => item.SetPowerOfLight(-1001));
         }
 
 
@@ -172,67 +119,17 @@ namespace UnitTestProject
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             LightBulb item = new LightBulb("test");
 
-            try
-            {
-                item.SetPowerOfLight(0, controlPanel);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new DeviceOwnerIsNullException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void ControllerIsNotEqualDeviceOwnerExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            LightBulb item = new LightBulb("test");
-            controlPanel.AddControlledItem(item);
-
-            try
-            {
-                item.SetPowerOfLight(0, new EquipmentControlPanel());
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new ControllerIsNotEqualDeviceOwnerException().Message);
-            }
-        }
-
-        [TestMethod]
-        public void DeviceBusyExceptionTest()
-        {
-            EquipmentControlPanel controlPanel = new EquipmentControlPanel();
-            EquipmentControlPanel controlPanel2 = new EquipmentControlPanel();
-
-            LightBulb item = new LightBulb("test");
-            controlPanel.AddControlledItem(item);
-
-            try
-            {
-                controlPanel2.AddControlledItem(item);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new DeviceBusyException().Message);
-            }
+            Assert.ThrowsException<DeviceOwnerIsNullException>(() => item.SetPowerOfLight(0));
         }
 
         public void DropConnectTest()
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             LightBulb item = new LightBulb("test");
-            controlPanel.AddControlledItem(item);
+            controlPanel.ConnectionEstablishment(item);
             item.DropConnect(controlPanel);
 
-            try
-            {
-                item.SetPowerOfLight(0, controlPanel);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(ex.Message, new DeviceOwnerIsNullException().Message);
-            }
+            Assert.ThrowsException<DeviceOwnerIsNullException>(() => item.SetPowerOfLight(0));
         }
 
     }
