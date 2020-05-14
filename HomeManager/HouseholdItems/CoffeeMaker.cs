@@ -70,7 +70,7 @@ namespace HomeManager.HouseholdItems
 
         public override string GetString()
         {
-            return $"Name {name}, Water {percentWater}%, Grains Coffee {percentGrainsCoffee}%, Connect {deviceOwner}"; 
+            return $"Is Active {isActive}; Name {name}, Water {percentWater}%, Grains Coffee {percentGrainsCoffee}%, Connect {deviceOwner}"; 
         }
 
     }

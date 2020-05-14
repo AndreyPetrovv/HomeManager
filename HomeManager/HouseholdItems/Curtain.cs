@@ -49,7 +49,7 @@ namespace HomeManager.HouseholdItems
 
         public override string GetString()
         {
-            return $"Name {name}, Is open {isOpen}, Connect {deviceOwner}";
+            return $"Is Active {isActive}; Name {name}, Is open {isOpen}, Connect {deviceOwner}";
         }
 
     }

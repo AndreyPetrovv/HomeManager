@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,22 +25,27 @@ namespace HomeManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<string> viewCollection;
+        static CancellationTokenSource cts;
+        static CancellationToken token;
+
+        public static ObservableCollection<IHouseholdItem> viewCollection { get; set; }
+        public ObservableCollection<string> viewActCollection { get; set; }
         private EquipmentControlPanel equipmentControlPanel;
-        private Home home;
+        private static Home home;
 
         public MainWindow()
         {
-           
-            viewCollection = new ObservableCollection<string>();
+            cts = new CancellationTokenSource();
+            token = cts.Token;
+
+            viewCollection = new ObservableCollection<IHouseholdItem>();
+            viewActCollection = new ObservableCollection<string>();
             equipmentControlPanel = new EquipmentControlPanel();
             home = new Home();
 
             GenerateHouseholdItems();
 
             InitializeComponent();
-            listHousholdItems.ItemsSource = viewCollection;
-
         }
         private void GenerateHouseholdItems()
         {
@@ -57,71 +63,69 @@ namespace HomeManager
             equipmentControlPanel.ConnectionEstablishment(home.GetHomeItems[3]);
             equipmentControlPanel.ConnectionEstablishment(home.GetHomeItems[4]);
 
-        }
-
-        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!(listHousholdItems.SelectedItem is null))
-            {
-                int index = GetIndexSelectedItem();
-                IHouseholdItem item;
-
-                if (IsHousList.IsChecked.Value)
-                {
-                    item = home.GetHomeItems[index];
-                }
-            }
+            UpdateItems();
+            UpdateActions();
         }
 
         private void ElectricityTurnOn(object sender, RoutedEventArgs e)
         {
-            home.SwitchOnElectricity();
+            cts.Cancel();
+            cts = new CancellationTokenSource();
+            token = cts.Token;
+
+            AsyncElectricityTurnOn(); 
         }
         private void ElectricityTurnOff(object sender, RoutedEventArgs e)
         {
-            home.SwitchOffElectricity();
+            cts.Cancel();
+            cts = new CancellationTokenSource();
+            token = cts.Token;
+
+            AsyncElectricityTurnOff();
+        }
+        private static async void AsyncElectricityTurnOn()
+        {
+            await Task.Run(() => Home.SwitchOnElectricity(token));
+            UpdateItems();
+        }
+        private static async void AsyncElectricityTurnOff()
+        {
+            await Task.Run(() => Home.SwitchOffElectricity(token));
+            UpdateItems();
         }
 
-        private void RadioButtonCheckedHousList(object sender, RoutedEventArgs e)
-        {
-            ViewItems(home.GetHomeItems);
-        }
-        private void RadioButtonCheckedEquipmentControl(object sender, RoutedEventArgs e)
-        {
-            ViewActions(equipmentControlPanel.GetHouseholdActions);
-        }
-        private void ViewItems(List<IHouseholdItem> items)
+        private static void UpdateItems()
         {
             viewCollection.Clear();
 
-            foreach (var item in items)
+            foreach (var item in home.GetHomeItems)
             {
-                viewCollection.Add(item.GetString());
+                viewCollection.Add(item);
             }
         }
-        private void ViewActions(List<IAction> actions)
+        private void UpdateActions()
         {
-            viewCollection.Clear();
+            viewActCollection.Clear();
 
-            foreach (var item in actions)
+            foreach (var item in equipmentControlPanel.GetHouseholdActions)
             {
-                viewCollection.Add(item.GetString());
+                viewActCollection.Add(item.GetString());
             }
         }
 
         private int GetIndexSelectedItem()
         {
-            return listHousholdItems.SelectedIndex;
+            return listAction.SelectedIndex;
         }
 
         private void Do(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (! IsHousList.IsChecked.Value)
-                {
-                    equipmentControlPanel.PushButton(GetIndexSelectedItem());
-                }
+
+                equipmentControlPanel.PushButton(GetIndexSelectedItem());
+
+                UpdateItems();
             }
             catch (HouseholdItemException householdItemException)
             {

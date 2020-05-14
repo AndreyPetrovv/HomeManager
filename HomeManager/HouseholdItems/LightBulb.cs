@@ -57,7 +57,7 @@ namespace HomeManager.HouseholdItems
 
         public override string GetString()
         {
-            return $"Name {name}, Power of ight {powerOfLight}%, Connect {deviceOwner}";
+            return $"Is Active {isActive}; Name {name}, Power of ight {powerOfLight}%, Connect {deviceOwner}";
         }
 
     }

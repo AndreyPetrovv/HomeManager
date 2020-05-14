@@ -14,6 +14,7 @@ namespace HomeManager.HouseholdItems
         protected bool isActive = true;
 
         public string GetName => name;
+        public string GetInfo => GetString();
 
         protected void CheckDeviceIsNull()
         {

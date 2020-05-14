@@ -21,15 +21,24 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <RadioButton x:Name="IsHousList" Grid.Column="0" Width="180" Content="Hous list" IsChecked="True"  HorizontalAlignment="Left" Margin="185,0,0,0" Checked="RadioButtonCheckedHousList" />
-                <RadioButton x:Name="IsEquipmen" Grid.Column="1" Width="180" Content="All Actions of Equipment Control Panel" HorizontalAlignment="Left" Checked="RadioButtonCheckedEquipmentControl" />
             </Grid>
-            <ListBox Name="listHousholdItems" Height="350" Width="450" SelectionChanged="SelectionChanged"/>
+            <ListBox Name="listHousholdItems" Height="350" Width="450"
+                ItemsSource="{Binding Path=viewCollection,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding GetInfo}"></TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
-
-        <StackPanel x:Name="listActions" Width="270" HorizontalAlignment="Left" Margin="15,57,0,110">
+        <StackPanel Margin="15,114,515,16">
+            <ListBox x:Name="listAction" Height="276" Width="270"
+                ItemsSource="{Binding Path=viewActCollection,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}">
+            </ListBox>
+        </StackPanel>
+        <StackPanel x:Name="listActions" Width="270" HorizontalAlignment="Left" Margin="15,57,0,320">
             <Button Height="25" Margin="0,5,0,5" Click="Do">Do</Button>
         </StackPanel>
-       
+
     </Grid>
 </Window>
