@@ -9,7 +9,7 @@ namespace HomeManager
 {
     public class Home
     {
-        private static List<IHouseholdItem> allHomeItems;
+        private List<IHouseholdItem> allHomeItems;
         public List<IHouseholdItem> GetHomeItems { get => allHomeItems; }
 
         public Home()
@@ -28,7 +28,7 @@ namespace HomeManager
         }
 
 
-        public static void SwitchOffElectricity()
+        public void SwitchOffElectricity()
         {
             foreach (var item in allHomeItems)
             {
@@ -37,7 +37,7 @@ namespace HomeManager
             }
         }
 
-        public static void SwitchOnElectricity()
+        public void SwitchOnElectricity()
         {
             foreach (var item in allHomeItems)
             {
@@ -46,7 +46,7 @@ namespace HomeManager
             }
         }
 
-        public static void SwitchOffElectricity(CancellationToken token)
+        public void SwitchOffElectricity(CancellationToken token)
         {
             foreach (var item in allHomeItems)
             {
@@ -59,7 +59,7 @@ namespace HomeManager
             }
         }
 
-        public static void SwitchOnElectricity(CancellationToken token)
+        public void SwitchOnElectricity(CancellationToken token)
         {
             foreach (var item in allHomeItems)
             {

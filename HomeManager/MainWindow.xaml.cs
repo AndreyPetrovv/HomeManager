@@ -73,7 +73,7 @@ namespace HomeManager
             cts = new CancellationTokenSource();
             token = cts.Token;
 
-            AsyncElectricityTurnOn(); 
+            TurnOnElectricityAsync(); 
         }
         private void ElectricityTurnOff(object sender, RoutedEventArgs e)
         {
@@ -81,20 +81,20 @@ namespace HomeManager
             cts = new CancellationTokenSource();
             token = cts.Token;
 
-            AsyncElectricityTurnOff();
+            TurnOnElectricityAsync();
         }
-        private static async void AsyncElectricityTurnOn()
+        private async void TurnOnElectricityAsync()
         {
-            await Task.Run(() => Home.SwitchOnElectricity(token));
+            await Task.Run(() => home.SwitchOnElectricity(token), token);
             UpdateItems();
         }
-        private static async void AsyncElectricityTurnOff()
+        private async void TurnoffElectricityAsync()
         {
-            await Task.Run(() => Home.SwitchOffElectricity(token));
+            await Task.Run(() => home.SwitchOffElectricity(token), token);
             UpdateItems();
         }
 
-        private static void UpdateItems()
+        private void UpdateItems()
         {
             viewCollection.Clear();
 

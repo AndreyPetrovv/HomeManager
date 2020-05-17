@@ -24,7 +24,7 @@ namespace UnitTestProject
             Home home = new Home();
             home.AddNewHomeItem(new Curtain("test"));
 
-            Home.SwitchOffElectricity();
+            home.SwitchOffElectricity();
 
             Assert.IsFalse(home.GetHomeItems[0].ToRespond());
         }
@@ -34,9 +34,9 @@ namespace UnitTestProject
         {
             Home home = new Home();
             home.AddNewHomeItem(new Curtain("test"));
-            Home.SwitchOffElectricity();
+            home.SwitchOffElectricity();
 
-            Home.SwitchOnElectricity();
+            home.SwitchOnElectricity();
 
             Assert.IsTrue(home.GetHomeItems[0].ToRespond());
         }
