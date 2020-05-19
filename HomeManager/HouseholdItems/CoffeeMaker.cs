@@ -54,16 +54,16 @@ namespace HomeManager.HouseholdItems
         public void ReplenishdWater()
         {
             CheckDeviceIsNull();
-            this.percentWater = ReplenishToMaximum(this.percentWater);
+            this.percentWater = ReplenishToMaximum();
         }
 
         public void ReplenishCoffee()
         {
             CheckDeviceIsNull();
-            this.percentGrainsCoffee = ReplenishToMaximum(this.percentGrainsCoffee);
+            this.percentGrainsCoffee = ReplenishToMaximum();
         }
 
-        private int ReplenishToMaximum(int currPercent)
+        private int ReplenishToMaximum()
         {
             return 100;
         }

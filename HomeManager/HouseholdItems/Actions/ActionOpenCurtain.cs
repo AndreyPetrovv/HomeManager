@@ -18,10 +18,8 @@ namespace HomeManager.HouseholdItems.Actions
             curtain.Open();
         }
 
-        public IHouseholdItem GetHouseholdItem()
-        {
-            return curtain;
-        }
+        public IHouseholdItem GetHouseholdItem => curtain;
+        
 
         public string GetString()
         {

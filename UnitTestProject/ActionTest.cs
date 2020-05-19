@@ -26,8 +26,8 @@ namespace UnitTestProject
 
             action.DoAction();
 
-            Assert.AreEqual(action.GetHouseholdItem().GetString(),
-                "Name test, Water 90%, Grains Coffee 85%, Connect HomeManager.EquipmentControlPanel");
+            Assert.AreEqual(action.GetHouseholdItem.GetString(),
+                "Is Active True; Name test, Water 90%, Grains Coffee 85%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -40,8 +40,8 @@ namespace UnitTestProject
 
             action.DoAction();
 
-            Assert.AreEqual(action.GetHouseholdItem().GetString(),
-                "Name test, Water 0%, Grains Coffee 100%, Connect HomeManager.EquipmentControlPanel");
+            Assert.AreEqual(action.GetHouseholdItem.GetString(),
+                "Is Active True; Name test, Water 0%, Grains Coffee 100%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -54,8 +54,8 @@ namespace UnitTestProject
 
             action.DoAction();
 
-            Assert.AreEqual(action.GetHouseholdItem().GetString(),
-                "Name test, Water 100%, Grains Coffee 0%, Connect HomeManager.EquipmentControlPanel");
+            Assert.AreEqual(action.GetHouseholdItem.GetString(),
+                "Is Active True; Name test, Water 100%, Grains Coffee 0%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -68,8 +68,8 @@ namespace UnitTestProject
 
             action.DoAction();
 
-            Assert.AreEqual(action.GetHouseholdItem().GetString(),
-                "Name test, Power of ight 10%, Connect HomeManager.EquipmentControlPanel");
+            Assert.AreEqual(action.GetHouseholdItem.GetString(),
+                "Is Active True; Name test, Power of ight 10%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -85,8 +85,8 @@ namespace UnitTestProject
 
             actionD.DoAction();
 
-            Assert.AreEqual(actionD.GetHouseholdItem().GetString(),
-                "Name test, Power of ight 10%, Connect HomeManager.EquipmentControlPanel");
+            Assert.AreEqual(actionD.GetHouseholdItem.GetString(),
+                "Is Active True; Name test, Power of ight 10%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -102,8 +102,8 @@ namespace UnitTestProject
 
             action.DoAction();
 
-            Assert.AreEqual(action.GetHouseholdItem().GetString(),
-                "Name test, Is open False, Connect HomeManager.EquipmentControlPanel");
+            Assert.AreEqual(action.GetHouseholdItem.GetString(),
+                "Is Active True; Name test, Is open False, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -116,8 +116,8 @@ namespace UnitTestProject
 
             action.DoAction();
 
-            Assert.AreEqual(action.GetHouseholdItem().GetString(),
-                "Name test, Is open True, Connect HomeManager.EquipmentControlPanel");
+            Assert.AreEqual(action.GetHouseholdItem.GetString(),
+                "Is Active True; Name test, Is open True, Connect HomeManager.EquipmentControlPanel");
         }
 
     }

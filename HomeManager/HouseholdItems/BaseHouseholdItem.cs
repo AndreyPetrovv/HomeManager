@@ -16,6 +16,8 @@ namespace HomeManager.HouseholdItems
         public string GetName => name;
         public string GetInfo => GetString();
 
+        public bool ToRespond => isActive;
+
         protected void CheckDeviceIsNull()
         {
             if (this.deviceOwner is null)
@@ -30,13 +32,6 @@ namespace HomeManager.HouseholdItems
                 throw new ControllerIsNotEqualDeviceOwnerException();
             }
         }
-        protected bool CheckDeviceOwner(EquipmentControlPanel controller)
-        {
-            CheckDeviceIsNull();
-            CheckDeviceOwnerEquals(controller);
-
-            return true;
-        }
 
         public abstract List<IAction> SetConnect(EquipmentControlPanel deviceOwner);
         
@@ -48,10 +43,6 @@ namespace HomeManager.HouseholdItems
             this.deviceOwner = null;
         }
 
-        public bool ToRespond()
-        {
-            return isActive;
-        }
         public void TurnOn()
         {
             isActive = true;

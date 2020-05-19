@@ -19,10 +19,7 @@ namespace HomeManager.HouseholdItems.Actions
             curtain.Close();
         }
 
-        public IHouseholdItem GetHouseholdItem()
-        {
-            return curtain; 
-        }
+        public IHouseholdItem GetHouseholdItem => curtain;
 
         public string GetString()
         {

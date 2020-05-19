@@ -31,7 +31,7 @@ namespace HomeManager
         public static ObservableCollection<IHouseholdItem> viewCollection { get; set; }
         public ObservableCollection<string> viewActCollection { get; set; }
         private EquipmentControlPanel equipmentControlPanel;
-        private static Home home;
+        private Home home;
 
         public MainWindow()
         {
@@ -81,14 +81,14 @@ namespace HomeManager
             cts = new CancellationTokenSource();
             token = cts.Token;
 
-            TurnOnElectricityAsync();
+            TurnOffElectricityAsync();
         }
         private async void TurnOnElectricityAsync()
         {
             await Task.Run(() => home.SwitchOnElectricity(token), token);
             UpdateItems();
         }
-        private async void TurnoffElectricityAsync()
+        private async void TurnOffElectricityAsync()
         {
             await Task.Run(() => home.SwitchOffElectricity(token), token);
             UpdateItems();

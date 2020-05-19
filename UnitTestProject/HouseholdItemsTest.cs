@@ -23,7 +23,7 @@ namespace UnitTestProject
             item.MakeCoffee();
 
             Assert.AreEqual(item.GetString(),
-                "Name test, Water 90%, Grains Coffee 85%, Connect HomeManager.EquipmentControlPanel");
+                "Is Active True; Name test, Water 90%, Grains Coffee 85%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace UnitTestProject
             item.ReplenishCoffee();
 
             Assert.AreEqual(item.GetString(),
-                "Name test, Water 0%, Grains Coffee 100%, Connect HomeManager.EquipmentControlPanel");
+                "Is Active True; Name test, Water 0%, Grains Coffee 100%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace UnitTestProject
             item.ReplenishdWater();
 
             Assert.AreEqual(item.GetString(),
-                "Name test, Water 100%, Grains Coffee 0%, Connect HomeManager.EquipmentControlPanel");
+                "Is Active True; Name test, Water 100%, Grains Coffee 0%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace UnitTestProject
             item.SetPowerOfLight(50);
 
             Assert.AreEqual(item.GetString(),
-                "Name test, Power of ight 50%, Connect HomeManager.EquipmentControlPanel");
+                "Is Active True; Name test, Power of ight 50%, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace UnitTestProject
             item.Close();
 
             Assert.AreEqual(item.GetString(),
-                "Name test, Is open False, Connect HomeManager.EquipmentControlPanel");
+                "Is Active True; Name test, Is open False, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]
@@ -89,7 +89,7 @@ namespace UnitTestProject
             item.Open();
 
             Assert.AreEqual(item.GetString(),
-                "Name test, Is open True, Connect HomeManager.EquipmentControlPanel");
+                "Is Active True; Name test, Is open True, Connect HomeManager.EquipmentControlPanel");
         }
 
         [TestMethod]

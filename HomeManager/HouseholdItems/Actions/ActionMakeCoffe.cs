@@ -19,10 +19,8 @@ namespace HomeManager.HouseholdItems.Actions
             coffeeMaker.MakeCoffee();
         }
 
-        public IHouseholdItem GetHouseholdItem()
-        {
-            return coffeeMaker;
-        }
+        public IHouseholdItem GetHouseholdItem => coffeeMaker;
+        
 
         public string GetString()
         {

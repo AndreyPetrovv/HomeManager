@@ -30,7 +30,7 @@ namespace HomeManager
 
             IAction action = householdActions[actionIndex];
 
-            if (!action.GetHouseholdItem().ToRespond())
+            if (!action.GetHouseholdItem.ToRespond)
             {
                 throw new ItemOfHouseIsTurnOffException();
             }

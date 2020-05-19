@@ -25,6 +25,7 @@ namespace HomeManager.HouseholdItems
 
                 List<IAction> actions = new List<IAction>() {
                     new ActionUpPowerOfLight(this),
+                    new ActionDownPowerOfLight(this)
                 };
 
                 return actions;

@@ -34,7 +34,7 @@ namespace UnitTestProject
         {
             EquipmentControlPanel controlPanel = new EquipmentControlPanel();
             controlPanel.ConnectionEstablishment(new Curtain("test"));
-            controlPanel.GetHouseholdActions[0].GetHouseholdItem().TurnOff();
+            controlPanel.GetHouseholdActions[0].GetHouseholdItem.TurnOff();
 
             Assert.ThrowsException<ItemOfHouseIsTurnOffException>(() => controlPanel.PushButton(0));
         }

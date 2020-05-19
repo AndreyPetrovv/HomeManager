@@ -19,10 +19,8 @@ namespace HomeManager.HouseholdItems.Actions
             lightBulb.SetPowerOfLight(10);
         }
 
-        public IHouseholdItem GetHouseholdItem()
-        {
-            return lightBulb;
-        }
+        public IHouseholdItem GetHouseholdItem => lightBulb;
+        
 
         public string GetString()
         {
