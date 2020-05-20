@@ -5,7 +5,7 @@ using HomeManager.HouseholdItems;
 namespace UnitTestProject
 {
     [TestClass]
-    public class Actions
+    public class HomeTest
     {
 
         [TestMethod]
