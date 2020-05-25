@@ -85,12 +85,12 @@ namespace HomeManager
         }
         private async void TurnOnElectricityAsync()
         {
-            await Task.Run(() => home.SwitchOnElectricity(token), token);
+            await Task.Run(() => home.SwitchOnElectricityAsync(token), token);
             UpdateItems();
         }
         private async void TurnOffElectricityAsync()
         {
-            await Task.Run(() => home.SwitchOffElectricity(token), token);
+            await Task.Run(() => home.SwitchOffElectricityAsync(token), token);
             UpdateItems();
         }
 

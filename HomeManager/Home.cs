@@ -46,7 +46,7 @@ namespace HomeManager
             }
         }
 
-        public void SwitchOffElectricity(CancellationToken token)
+        public void SwitchOffElectricityAsync(CancellationToken token)
         {
             foreach (var item in allHomeItems)
             {
@@ -59,7 +59,7 @@ namespace HomeManager
             }
         }
 
-        public void SwitchOnElectricity(CancellationToken token)
+        public void SwitchOnElectricityAsync(CancellationToken token)
         {
             foreach (var item in allHomeItems)
             {
